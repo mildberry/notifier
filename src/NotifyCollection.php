@@ -5,7 +5,7 @@ namespace Mildberry\Notifier;
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
  */
-class NotifyCollection implements \IteratorAggregate  , \ArrayAccess , \Countable
+class NotifyCollection implements \IteratorAggregate, \ArrayAccess, \Countable
 {
     /**
      * @var Notify[]

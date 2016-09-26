@@ -2,56 +2,22 @@
 
 namespace Mildberry\Notifier;
 
+use Mildberry\Notifier\Interfaces\NotifyInterface;
+
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
  */
-class Notify
+class Notify implements NotifyInterface
 {
     /**
      * @var string
      */
-    private $transport;
+    protected $recipient;
 
     /**
      * @var string
      */
-    private $recipient;
-
-    /**
-     * @var string
-     */
-    private $message;
-
-    /**
-     * @param string|array $transport
-     * @param string|array $recipient
-     * @param string|array $message
-     * @return self|NotifyCollection
-     */
-    public static function make($transport, $recipient, $message)
-    {
-        return new self();
-    }
-
-    /**
-     * @return string
-     */
-    public function getTransport()
-    {
-        return $this->transport;
-    }
-
-    /**
-     * @param string $transport
-     *
-     * @return $this
-     */
-    public function setTransport($transport)
-    {
-        $this->transport = $transport;
-
-        return $this;
-    }
+    protected $body;
 
     /**
      * @return string
@@ -76,19 +42,18 @@ class Notify
     /**
      * @return string
      */
-    public function getMessage()
+    public function getBody()
     {
-        return $this->message;
+        return $this->body;
     }
 
     /**
-     * @param string $message
-     *
+     * @param string $body
      * @return $this
      */
-    public function setMessage($message)
+    public function setBody($body)
     {
-        $this->message = $message;
+        $this->body = $body;
 
         return $this;
     }

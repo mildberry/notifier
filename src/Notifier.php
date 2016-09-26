@@ -2,6 +2,7 @@
 
 namespace Mildberry\Notifier;
 
+use Mildberry\Notifier\Exception\TransportNotFoundException;
 use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Interfaces\TransportInterface;
 
@@ -34,13 +35,19 @@ class Notifier
     }
 
     /**
-     * @param string $alias
+     * @param string|array $notifyInterfaces
      * @param TransportInterface $transport
      * @return $this
      */
-    public function addTransport($alias, TransportInterface $transport)
+    public function setNotifyTransport($notifyInterfaces, TransportInterface $transport)
     {
-        $this->transports[$alias] = $transport;
+        if (!is_array($notifyInterfaces)) {
+            $notifyInterfaces = [$notifyInterfaces];
+        }
+
+        foreach ($notifyInterfaces as $notifyInterface) {
+            $this->transports[$notifyInterface] = $transport;
+        }
 
         return $this;
     }
@@ -92,5 +99,26 @@ class Notifier
      */
     private function sendNotify(Notify $notify)
     {
+        $transport = $this->getTransportByNotify($notify);
+
+        $transport->sendNotify($notify);
+    }
+
+    /**
+     * @param Notify $notify
+     * @return TransportInterface
+     * @throws TransportNotFoundException
+     */
+    private function getTransportByNotify(Notify $notify)
+    {
+        $notifyInterfaces = array_keys($this->transports);
+
+        foreach ($notifyInterfaces as $interface) {
+            if ($notify instanceof $interface) {
+                return $this->transports[$interface];
+            }
+        }
+
+        throw new TransportNotFoundException('Transport for notify "'.get_class($notify).'" not found');
     }
 }

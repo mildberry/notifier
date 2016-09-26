@@ -7,4 +7,9 @@ namespace Mildberry\Notifier\Interfaces;
  */
 interface TransportInterface
 {
+    /**
+     * @param NotifyInterface $notify
+     * @return void
+     */
+    public function sendNotify(NotifyInterface $notify);
 }
