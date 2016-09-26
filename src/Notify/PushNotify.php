@@ -3,7 +3,6 @@
 namespace Mildberry\Notifier\Notify;
 
 use Mildberry\Notifier\Interfaces\PushNotifyInterface;
-use Mildberry\Notifier\Notify;
 
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>

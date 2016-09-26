@@ -1,6 +1,6 @@
 <?php
 
-namespace Mildberry\Notifier;
+namespace Mildberry\Notifier\Notify;
 
 use Mildberry\Notifier\Interfaces\NotifyInterface;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mildberry\Notifier;
+namespace Mildberry\Notifier\Notify;
 
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>

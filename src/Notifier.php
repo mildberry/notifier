@@ -5,6 +5,8 @@ namespace Mildberry\Notifier;
 use Mildberry\Notifier\Exception\TransportNotFoundException;
 use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Interfaces\TransportInterface;
+use Mildberry\Notifier\Notify\Notify;
+use Mildberry\Notifier\Notify\NotifyCollection;
 
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>

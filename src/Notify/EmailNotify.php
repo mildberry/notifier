@@ -3,7 +3,6 @@
 namespace Mildberry\Notifier\Notify;
 
 use Mildberry\Notifier\Interfaces\EmailNotifyInterface;
-use Mildberry\Notifier\Notify;
 use Mildberry\Notifier\Traits\SubjectTrait;
 
 /**
