@@ -1,6 +1,8 @@
 # Notifier
 Library for send user notifications by different transports
 
+[![Build Status](https://travis-ci.org/mildberry/notifier.svg?branch=master)](https://travis-ci.org/mildberry/notifier)
+
 ## Install
 
 ``` bash
