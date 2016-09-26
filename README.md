@@ -2,6 +2,7 @@
 Library for send user notifications by different transports
 
 [![Build Status](https://travis-ci.org/mildberry/notifier.svg?branch=master)](https://travis-ci.org/mildberry/notifier)
+[![codecov](https://codecov.io/gh/mildberry/notifier/branch/master/graph/badge.svg)](https://codecov.io/gh/mildberry/notifier)
 
 ## Install
 
