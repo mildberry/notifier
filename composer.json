@@ -1,0 +1,30 @@
+{
+    "name": "mildberry/notifier",
+    "description": "Library for send user notifications by different transports",
+    "keywords": [ "php", "email", "sms", "push"],
+    "homepage": "https://github.com/mildberry/notifier",
+    "license": "MIT",
+    "type": "library",
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mildberry\\Notifier\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": { "Mildberry\\Notifier\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "authors": [
+        {
+            "name": "Egor Zyuskin",
+            "email": "e.zyuskin@mildberry.com"
+        }
+    ]
+}
