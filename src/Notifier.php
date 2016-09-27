@@ -55,16 +55,20 @@ class Notifier
     }
 
     /**
-     * @param Notify|NotifyCollection $notify
+     * @param Notify $notify
      */
     public function send($notify)
     {
-        if ($notify instanceof Notify) {
-            $notify = (new NotifyCollection())->push($notify);
-        }
+        $this->sendNotify($notify);
+    }
 
-        foreach ($notify as $item) {
-            $this->sendNotify($item);
+    /**
+     * @param NotifyCollection $collection
+     */
+    public function sendCollection(NotifyCollection $collection)
+    {
+        foreach ($collection as $notify) {
+            $this->sendNotify($notify);
         }
     }
 
