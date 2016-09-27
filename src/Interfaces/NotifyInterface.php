@@ -28,4 +28,9 @@ interface NotifyInterface
      * @return $this
      */
     public function setRecipient($recipient);
+
+    /**
+     * @return string
+     */
+    public function toJson();
 }

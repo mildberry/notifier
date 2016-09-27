@@ -57,4 +57,29 @@ class Notify implements NotifyInterface
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function toJson()
+    {
+        $array = [];
+
+        foreach (get_object_vars($this) as $key => $value) {
+            $method = sprintf('get%s', ucwords($key));
+            if (method_exists($this, $method)) {
+                $array[$key] = $this->$method();
+            }
+        }
+
+        return json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
 }

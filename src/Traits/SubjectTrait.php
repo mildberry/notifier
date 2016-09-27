@@ -10,7 +10,7 @@ trait SubjectTrait
     /**
      * @var string
      */
-    private $subject;
+    protected $subject;
 
     /**
      * @return string

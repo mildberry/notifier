@@ -31,7 +31,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testSmsNotify()
     {
-        $this->expectOutputRegex('(1234567890)');
+        $this->expectOutputString('{"recipient":"1234567890","body":"sms"}');
         $sms = new SmsNotify('1234567890', 'sms');
 
         $this->notifier->send($sms);
@@ -39,7 +39,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testEmailNotify()
     {
-        $this->expectOutputRegex('(admin@google.com)');
+        $this->expectOutputString('{"recipient":"admin@google.com","body":"Hello admin","subject":"Test message"}');
         $sms = new EmailNotify('admin@google.com', 'Hello admin', 'Test message');
 
         $this->notifier->send($sms);
@@ -47,7 +47,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testPushNotify()
     {
-        $this->expectOutputRegex('(YTFYF5456GFDS44Y)');
+        $this->expectOutputString('{"recipient":"YTFYF5456GFDS44Y","body":"Take on your phone"}');
         $sms = new PushNotify('YTFYF5456GFDS44Y', 'Take on your phone');
 
         $this->notifier->send($sms);

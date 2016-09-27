@@ -16,6 +16,6 @@ class VarDumpTransport implements TransportInterface
      */
     public function sendNotify(NotifyInterface $notify)
     {
-        var_dump($notify);
+        print $notify->toJson();
     }
 }
