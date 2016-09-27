@@ -2,9 +2,11 @@
 
 namespace Mildberry\Notifier\Tests;
 
+use Mildberry\Notifier\Interfaces\SmsNotifyInterface;
 use Mildberry\Notifier\Notifier;
 use Mildberry\Notifier\Notify\NotifyCollection;
 use Mildberry\Notifier\Notify\SmsNotify;
+use Mildberry\Notifier\Transport\VarDumpTransport;
 
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
@@ -21,21 +23,28 @@ class NotifierNotifyCollectionTest extends \PHPUnit_Framework_TestCase
         parent::__construct();
 
         $this->notifier = new Notifier();
+        $this->notifier->setNotifyTransport(SmsNotifyInterface::class, (new VarDumpTransport()));
     }
 
     public function testNotifyCollectionClass()
     {
+        $this->expectOutputString('{"recipient":"1234567980","body":"test"}{"recipient":"1234567890","body":"test2"}');
+
         $collection = new NotifyCollection();
 
         $this->assertTrue($collection instanceof NotifyCollection);
         $sms = new SmsNotify('1234567980', 'test');
-        $collection->offsetSet(0, $sms);
-        $this->assertEquals(1, $collection->count());
-        $this->assertEquals(1, count($collection->getNotifies()));
+        $collection->push($sms);
+        $collection->offsetSet(1, (new SmsNotify('1234567890', 'test2')));
+        $this->assertEquals(2, $collection->count());
+        $this->assertEquals(2, count($collection->getNotifies()));
         $this->assertTrue($collection->offsetExists(0));
         $this->assertEquals($sms, $collection->offsetGet(0));
+
+        $this->notifier->sendCollection($collection);
+
         $collection->offsetUnset(0);
-        $this->assertEquals(0, $collection->count());
+        $this->assertEquals(1, $collection->count());
     }
 
 }

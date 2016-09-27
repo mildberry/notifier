@@ -93,6 +93,14 @@ class Notifier
     }
 
     /**
+     * @return Interfaces\TransportInterface[]
+     */
+    public function getTransports()
+    {
+        return $this->transports;
+    }
+
+    /**
      * @param array $options
      */
     private function setOptions(array $options = [])

@@ -24,8 +24,14 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
         $this->notifier->setNotifyTransport(EmailNotifyInterface::class, (new VarDumpTransport()));
     }
 
+    /**
+     * @ex
+     */
     public function testCreateNotifierClass()
     {
-        $this->assertTrue($this->notifier instanceof Notifier);
+        $notifier = new Notifier();
+        $this->assertTrue($notifier instanceof Notifier);
+        $notifier->setNotifyTransport(EmailNotifyInterface::class, (new VarDumpTransport()));
+        $this->assertEquals(1, count($notifier->getTransports()));
     }
 }
