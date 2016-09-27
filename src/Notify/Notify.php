@@ -74,12 +74,4 @@ class Notify implements NotifyInterface
 
         return json_encode($array, JSON_UNESCAPED_UNICODE);
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->toJson();
-    }
 }
