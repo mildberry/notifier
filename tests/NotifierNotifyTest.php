@@ -40,16 +40,17 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
     public function testEmailNotify()
     {
         $this->expectOutputString('{"recipient":"admin@google.com","body":"Hello admin","subject":"Test message"}');
-        $sms = new EmailNotify('admin@google.com', 'Hello admin', 'Test message');
+        $email = new EmailNotify('admin@google.com', 'Hello admin', 'Test message');
+        $this->assertEquals('Test message', $email->getSubject());
 
-        $this->notifier->send($sms);
+        $this->notifier->send($email);
     }
 
     public function testPushNotify()
     {
         $this->expectOutputString('{"recipient":"YTFYF5456GFDS44Y","body":"Take on your phone"}');
-        $sms = new PushNotify('YTFYF5456GFDS44Y', 'Take on your phone');
+        $push = new PushNotify('YTFYF5456GFDS44Y', 'Take on your phone');
 
-        $this->notifier->send($sms);
+        $this->notifier->send($push);
     }
 }
