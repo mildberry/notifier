@@ -97,7 +97,7 @@ class Notifier
      *
      * @return $this
      */
-    public function setStorage($storage)
+    public function setStorage(StorageInterface $storage)
     {
         $this->storage = $storage;
 
@@ -132,6 +132,10 @@ class Notifier
      */
     private function getTransportByNotify(Notify $notify)
     {
+        if (is_null($this->transports)) {
+            throw new TransportNotFoundException('Transport for notify "'.get_class($notify).'" not found');
+        }
+
         $notifyInterfaces = array_keys($this->transports);
 
         foreach ($notifyInterfaces as $interface) {
