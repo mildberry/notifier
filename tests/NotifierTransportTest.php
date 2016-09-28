@@ -46,6 +46,12 @@ class NotifierTransportTest extends \PHPUnit_Framework_TestCase
             ->push(new SmsNotify('1234567890', 'test2'))
         ;
 
-        $this->notifier->sendCollection($collection);
+        $collection = $this->notifier->sendCollection($collection);
+        $id = 1;
+        foreach ($collection as $notify) {
+            $this->assertEquals($id, $notify->getExternalId());
+            $this->assertTrue($notify->isSended());
+            $id ++;
+        }
     }
 }

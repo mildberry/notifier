@@ -13,17 +13,28 @@ class NullStorage implements StorageInterface
 {
     /**
      * @param NotifyInterface $notify
-     * @return void
+     * @return NotifyInterface
      */
     public function saveNotify(NotifyInterface $notify)
     {
+        $notify->setId(1);
+
+        return $notify;
     }
 
     /**
      * @param NotifyCollection $collection
-     * @return void
+     * @return NotifyCollection
      */
     public function saveNotifyCollection(NotifyCollection $collection)
     {
+        $id = 0;
+        foreach ($collection as $notify) {
+            $notify->setId(($id + 1));
+            $collection->offsetSet($id, $notify);
+            $id++;
+        }
+
+        return $collection;
     }
 }

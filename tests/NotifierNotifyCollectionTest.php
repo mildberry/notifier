@@ -32,7 +32,7 @@ class NotifierNotifyCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testNotifyCollectionClass()
     {
-        $this->expectOutputString('[{"id":null,"externalId":0,"recipient":"1234567980","body":"test"},{"id":null,"externalId":1,"recipient":"1234567890","body":"test2"}]');
+        $this->expectOutputString('[{"id":null,"externalId":1,"recipient":"1234567980","body":"test"},{"id":null,"externalId":2,"recipient":"1234567890","body":"test2"}]');
 
         $collection = new NotifyCollection();
 
@@ -49,6 +49,9 @@ class NotifierNotifyCollectionTest extends \PHPUnit_Framework_TestCase
 
         $collection->offsetUnset(0);
         $this->assertEquals(1, $collection->count());
+
+        $collection->merge((new NotifyCollection())->push(new SmsNotify('1234567980', 'test3')));
+        $this->assertEquals(2, $collection->count());
     }
 
 }

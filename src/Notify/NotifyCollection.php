@@ -26,6 +26,17 @@ class NotifyCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     }
 
     /**
+     * @param NotifyCollection $collection
+     * @return $this
+     */
+    public function merge(NotifyCollection $collection)
+    {
+        $this->notifies = array_merge($this->notifies, $collection->getNotifies());
+
+        return $this;
+    }
+
+    /**
      * Determine if an item exists at an offset.
      *
      * @param  mixed  $key

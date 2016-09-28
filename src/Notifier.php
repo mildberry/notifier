@@ -75,17 +75,23 @@ class Notifier
 
     /**
      * @param NotifyCollection $collection
+     * @return NotifyCollection
      */
     public function sendCollection(NotifyCollection $collection)
     {
+        $resultCollection = new NotifyCollection();
+
         $collections = $this->getNotifiesCollectionByTransport($collection);
 
         foreach ($collections as $array) {
             $collection = $array['transport']->sendNotifyCollection($array['collection']);
             if ($this->options['saveNotify'] && $this->storage) {
-                $this->storage->saveNotifyCollection($collection);
+                $collection = $this->storage->saveNotifyCollection($collection);
             }
+            $resultCollection->merge($collection);
         }
+
+        return $resultCollection;
     }
 
     /**

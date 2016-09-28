@@ -17,6 +17,11 @@ class NullTransport implements TransportInterface
      */
     public function sendNotify(NotifyInterface $notify)
     {
+        $notify
+            ->setSended(true)
+            ->setExternalId('1')
+        ;
+
         return $notify;
     }
 
@@ -26,6 +31,16 @@ class NullTransport implements TransportInterface
      */
     public function sendNotifyCollection(NotifyCollection $collection)
     {
+        $id = 0;
+        foreach ($collection as $notify) {
+            $notify
+                ->setSended(true)
+                ->setExternalId(($id + 1))
+            ;
+            $collection->offsetSet($id, $notify);
+            $id++;
+        }
+
         return $collection;
     }
 }

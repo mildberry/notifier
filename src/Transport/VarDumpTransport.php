@@ -9,7 +9,7 @@ use Mildberry\Notifier\Notify\NotifyCollection;
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
  */
-class VarDumpTransport implements TransportInterface
+class VarDumpTransport extends NullTransport implements TransportInterface
 {
     /**
      * @param NotifyInterface $notify
@@ -17,10 +17,7 @@ class VarDumpTransport implements TransportInterface
      */
     public function sendNotify(NotifyInterface $notify)
     {
-        $notify
-            ->setSended(true)
-            ->setExternalId('1')
-        ;
+        $notify = parent::sendNotify($notify);
 
         print $notify->toJson();
 
@@ -33,15 +30,7 @@ class VarDumpTransport implements TransportInterface
      */
     public function sendNotifyCollection(NotifyCollection $collection)
     {
-        $id = 0;
-        foreach ($collection as $notify) {
-            $notify
-                ->setSended(true)
-                ->setExternalId($id)
-            ;
-            $collection->offsetSet($id, $notify);
-            $id++;
-        }
+        $collection = parent::sendNotifyCollection($collection);
 
         print $collection->toJson();
 
