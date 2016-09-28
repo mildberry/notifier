@@ -88,7 +88,7 @@ $notifier->send(new RegistrationCompleteSms('79136703311'));
 
 - Documentation for Transports
 - Documentation for Storage
-- Saving externalID and save delivery sate from transport
+- Saving externalID and save delivery state from transport
 - Notify query
 
 ## License
