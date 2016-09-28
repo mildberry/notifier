@@ -40,4 +40,13 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
     {
         $this->notifier->send(new SmsNotify('123456798', 'test'));
     }
+
+    /**
+     * @expectedException \Mildberry\Notifier\Exception\TransportNotFoundException
+     */
+    public function testFiledGetTransport2()
+    {
+        $notifier = new Notifier();
+        $notifier->send(new SmsNotify('123456798', 'test'));
+    }
 }
