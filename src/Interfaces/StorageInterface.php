@@ -11,13 +11,13 @@ interface StorageInterface
 {
     /**
      * @param NotifyInterface $notify
-     * @return void
+     * @return NotifyInterface
      */
     public function saveNotify(NotifyInterface $notify);
 
     /**
      * @param NotifyCollection $collection
-     * @return void
+     * @return NotifyCollection
      */
     public function saveNotifyCollection(NotifyCollection $collection);
 }

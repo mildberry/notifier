@@ -24,14 +24,14 @@ class NotifierStorageTest extends \PHPUnit_Framework_TestCase
         parent::__construct();
 
         $this->notifier = new Notifier(['saveNotify' => true]);
-        $this->notifier
-            ->setStorage(new NullStorage())
-            ->setNotifyTransport(SmsNotifyInterface::class, (new NullTransport()))
-        ;
     }
 
     public function testNullStorage()
     {
+        $this->notifier
+            ->setStorage(new NullStorage())
+            ->setNotifyTransport(SmsNotifyInterface::class, (new NullTransport()))
+        ;
         $this->assertTrue($this->notifier->getStorage() instanceof StorageInterface);
         $this->notifier->send(new SmsNotify('1234567890', '123'));
     }

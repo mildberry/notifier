@@ -3,8 +3,11 @@
 namespace Mildberry\Notifier\Tests;
 
 use Mildberry\Notifier\Interfaces\EmailNotifyInterface;
+use Mildberry\Notifier\Interfaces\SmsNotifyInterface;
 use Mildberry\Notifier\Notifier;
+use Mildberry\Notifier\Notify\NotifyCollection;
 use Mildberry\Notifier\Notify\SmsNotify;
+use Mildberry\Notifier\Transport\NullTransport;
 use Mildberry\Notifier\Transport\VarDumpTransport;
 
 /**
@@ -32,5 +35,17 @@ class NotifierTransportTest extends \PHPUnit_Framework_TestCase
     public function testFailedVarDumpTransport()
     {
         $this->notifier->send(new SmsNotify('1234567890', 'test'));
+    }
+
+    public function testSendCollectionNullTransport()
+    {
+        $this->notifier->setNotifyTransport(SmsNotifyInterface::class, new NullTransport());
+        $collection = new NotifyCollection();
+        $collection
+            ->push(new SmsNotify('1234567890', 'test1'))
+            ->push(new SmsNotify('1234567890', 'test2'))
+        ;
+
+        $this->notifier->sendCollection($collection);
     }
 }

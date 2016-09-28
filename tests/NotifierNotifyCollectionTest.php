@@ -6,6 +6,7 @@ use Mildberry\Notifier\Interfaces\SmsNotifyInterface;
 use Mildberry\Notifier\Notifier;
 use Mildberry\Notifier\Notify\NotifyCollection;
 use Mildberry\Notifier\Notify\SmsNotify;
+use Mildberry\Notifier\Storage\NullStorage;
 use Mildberry\Notifier\Transport\VarDumpTransport;
 
 /**
@@ -22,8 +23,11 @@ class NotifierNotifyCollectionTest extends \PHPUnit_Framework_TestCase
     {
         parent::__construct();
 
-        $this->notifier = new Notifier();
-        $this->notifier->setNotifyTransport(SmsNotifyInterface::class, (new VarDumpTransport()));
+        $this->notifier = new Notifier(['saveNotify' => true]);
+        $this->notifier
+            ->setStorage(new NullStorage())
+            ->setNotifyTransport(SmsNotifyInterface::class, (new VarDumpTransport()))
+        ;
     }
 
     public function testNotifyCollectionClass()

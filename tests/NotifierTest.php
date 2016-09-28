@@ -4,6 +4,7 @@ namespace Mildberry\Notifier\Tests;
 
 use Mildberry\Notifier\Interfaces\EmailNotifyInterface;
 use Mildberry\Notifier\Notifier;
+use Mildberry\Notifier\Notify\EmailNotify;
 use Mildberry\Notifier\Transport\VarDumpTransport;
 
 /**
@@ -25,12 +26,13 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @ex
+     * @expectedException \Mildberry\Notifier\Exception\TransportNotFoundException
      */
     public function testCreateNotifierClass()
     {
         $notifier = new Notifier();
         $this->assertTrue($notifier instanceof Notifier);
+        $notifier->send(new EmailNotify('123456798', 'test', 'test'));
         $notifier->setNotifyTransport(EmailNotifyInterface::class, (new VarDumpTransport()));
         $this->assertEquals(1, count($notifier->getTransports()));
     }

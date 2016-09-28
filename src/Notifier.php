@@ -3,6 +3,7 @@
 namespace Mildberry\Notifier;
 
 use Mildberry\Notifier\Exception\TransportNotFoundException;
+use Mildberry\Notifier\Interfaces\NotifyInterface;
 use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Interfaces\TransportInterface;
 use Mildberry\Notifier\Notify\Notify;
@@ -57,16 +58,19 @@ class Notifier
 
     /**
      * @param Notify $notify
+     * @return Notify
      */
-    public function send($notify)
+    public function send(Notify $notify)
     {
         $transport = $this->getTransportByNotify($notify);
 
         $notify = $transport->sendNotify($notify);
 
         if ($this->options['saveNotify'] && $this->storage) {
-            $this->storage->saveNotify($notify);
+            $notify = $this->storage->saveNotify($notify);
         }
+
+        return $notify;
     }
 
     /**
