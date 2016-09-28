@@ -7,6 +7,7 @@ use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Interfaces\TransportInterface;
 use Mildberry\Notifier\Notify\Notify;
 use Mildberry\Notifier\Notify\NotifyCollection;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
@@ -59,7 +60,13 @@ class Notifier
      */
     public function send($notify)
     {
-        $this->sendNotify($notify);
+        $transport = $this->getTransportByNotify($notify);
+
+        $notify = $transport->sendNotify($notify);
+
+        if ($this->options['saveNotify'] && $this->storage) {
+            $this->storage->saveNotify($notify);
+        }
     }
 
     /**
@@ -67,8 +74,13 @@ class Notifier
      */
     public function sendCollection(NotifyCollection $collection)
     {
-        foreach ($collection as $notify) {
-            $this->sendNotify($notify);
+        $collections = $this->getNotifiesCollectionByTransport($collection);
+
+        foreach ($collections as $array) {
+            $collection = $array['transport']->sendNotifyCollection($array['collection']);
+            if ($this->options['saveNotify'] && $this->storage) {
+                $this->storage->saveNotifyCollection($collection);
+            }
         }
     }
 
@@ -103,19 +115,14 @@ class Notifier
     /**
      * @param array $options
      */
-    private function setOptions(array $options = [])
+    public function setOptions(array $options = [])
     {
-        $this->options = $options;
-    }
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'saveNotify' => false,
+        ]);
 
-    /**
-     * @param Notify $notify
-     */
-    private function sendNotify(Notify $notify)
-    {
-        $transport = $this->getTransportByNotify($notify);
-
-        $transport->sendNotify($notify);
+        $this->options = $resolver->resolve($options);
     }
 
     /**
@@ -134,5 +141,29 @@ class Notifier
         }
 
         throw new TransportNotFoundException('Transport for notify "'.get_class($notify).'" not found');
+    }
+
+    /**
+     * @param NotifyCollection $collection
+     * @return array
+     * @throws TransportNotFoundException
+     */
+    private function getNotifiesCollectionByTransport(NotifyCollection $collection)
+    {
+        $array = [];
+
+        foreach ($collection as $notify) {
+            $transport = $this->getTransportByNotify($notify, $this->transports);
+            $transportClass = get_class($transport);
+            if (empty($array[$transportClass])) {
+                $array[$transportClass] = [
+                    'transport' => $transport,
+                    'collection' => new NotifyCollection(),
+                ];
+            }
+            $array[$transportClass]['collection']->push($notify);
+        }
+
+        return $array;
     }
 }

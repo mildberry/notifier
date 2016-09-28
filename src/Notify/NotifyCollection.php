@@ -101,4 +101,18 @@ class NotifyCollection implements \IteratorAggregate, \ArrayAccess, \Countable
     {
         return $this->notifies;
     }
+
+    /**
+     * @return string
+     */
+    public function toJson()
+    {
+        $array = [];
+
+        foreach ($this->getNotifies() as $notify) {
+            $array[] = $notify->toArray();
+        }
+
+        return json_encode($array, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+    }
 }

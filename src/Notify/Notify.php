@@ -10,6 +10,21 @@ use Mildberry\Notifier\Interfaces\NotifyInterface;
 class Notify implements NotifyInterface
 {
     /**
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * @var string
+     */
+    protected $externalId;
+
+    /**
+     * @var bool
+     */
+    protected $sended = false;
+
+    /**
      * @var string
      */
     protected $recipient;
@@ -18,6 +33,64 @@ class Notify implements NotifyInterface
      * @var string
      */
     protected $body;
+
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalId()
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @param string $externalId
+     * @return $this
+     */
+    public function setExternalId($externalId)
+    {
+        $this->externalId = $externalId;
+
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSended()
+    {
+        return $this->sended;
+    }
+
+    /**
+     * @param boolean $sended
+     * @return $this
+     */
+    public function setSended($sended)
+    {
+        $this->sended = $sended;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -59,9 +132,9 @@ class Notify implements NotifyInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function toJson()
+    public function toArray()
     {
         $array = [];
 
@@ -72,6 +145,14 @@ class Notify implements NotifyInterface
             }
         }
 
-        return json_encode($array, JSON_UNESCAPED_UNICODE);
+        return $array;
+    }
+
+    /**
+     * @return string
+     */
+    public function toJson()
+    {
+        return json_encode($this->toArray(), JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     }
 }

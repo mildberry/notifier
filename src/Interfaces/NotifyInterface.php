@@ -8,6 +8,39 @@ namespace Mildberry\Notifier\Interfaces;
 interface NotifyInterface
 {
     /**
+     * @return int
+     */
+    public function getId();
+
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id);
+
+    /**
+     * @return string
+     */
+    public function getExternalId();
+
+    /**
+     * @param string $externalId
+     * @return $this
+     */
+    public function setExternalId($externalId);
+
+    /**
+     * @return boolean
+     */
+    public function isSended();
+
+    /**
+     * @param boolean $sended
+     * @return $this
+     */
+    public function setSended($sended);
+
+    /**
      * @return string
      */
     public function getBody();
@@ -28,6 +61,11 @@ interface NotifyInterface
      * @return $this
      */
     public function setRecipient($recipient);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 
     /**
      * @return string

@@ -28,7 +28,7 @@ class NotifierNotifyCollectionTest extends \PHPUnit_Framework_TestCase
 
     public function testNotifyCollectionClass()
     {
-        $this->expectOutputString('{"recipient":"1234567980","body":"test"}{"recipient":"1234567890","body":"test2"}');
+        $this->expectOutputString('[{"id":null,"externalId":0,"recipient":"1234567980","body":"test"},{"id":null,"externalId":1,"recipient":"1234567890","body":"test2"}]');
 
         $collection = new NotifyCollection();
 

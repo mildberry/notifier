@@ -3,7 +3,9 @@
 namespace Mildberry\Notifier\Tests;
 
 use Mildberry\Notifier\Interfaces\EmailNotifyInterface;
+use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Notifier;
+use Mildberry\Notifier\Storage\NullStorage;
 use Mildberry\Notifier\Transport\VarDumpTransport;
 
 /**
@@ -29,8 +31,10 @@ class NotifierTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateNotifierClass()
     {
-        $notifier = new Notifier();
+        $notifier = new Notifier(['saveNotify' => true]);
         $this->assertTrue($notifier instanceof Notifier);
+        $notifier->setStorage(new NullStorage());
+        $this->assertTrue($notifier->getStorage() instanceof StorageInterface);
         $notifier->setNotifyTransport(EmailNotifyInterface::class, (new VarDumpTransport()));
         $this->assertEquals(1, count($notifier->getTransports()));
     }

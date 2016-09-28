@@ -7,17 +7,17 @@ use Mildberry\Notifier\Notify\NotifyCollection;
 /**
  * @author Egor Zyuskin <e.zyuskin@mildberry.com>
  */
-interface TransportInterface
+interface StorageInterface
 {
     /**
      * @param NotifyInterface $notify
-     * @return NotifyInterface
+     * @return void
      */
-    public function sendNotify(NotifyInterface $notify);
+    public function saveNotify(NotifyInterface $notify);
 
     /**
      * @param NotifyCollection $collection
-     * @return NotifyCollection
+     * @return void
      */
-    public function sendNotifyCollection(NotifyCollection $collection);
+    public function saveNotifyCollection(NotifyCollection $collection);
 }
