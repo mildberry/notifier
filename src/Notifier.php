@@ -3,7 +3,6 @@
 namespace Mildberry\Notifier;
 
 use Mildberry\Notifier\Exception\TransportNotFoundException;
-use Mildberry\Notifier\Interfaces\NotifyInterface;
 use Mildberry\Notifier\Interfaces\StorageInterface;
 use Mildberry\Notifier\Interfaces\TransportInterface;
 use Mildberry\Notifier\Notify\Notify;

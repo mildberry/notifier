@@ -4,7 +4,6 @@ namespace Mildberry\Notifier\Tests;
 
 use Mildberry\Notifier\Interfaces\EmailNotifyInterface;
 use Mildberry\Notifier\Notifier;
-use Mildberry\Notifier\Notify\EmailNotify;
 use Mildberry\Notifier\Notify\SmsNotify;
 use Mildberry\Notifier\Transport\VarDumpTransport;
 
