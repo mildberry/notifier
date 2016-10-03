@@ -31,7 +31,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testSmsNotify()
     {
-        $this->expectOutputString('{"id":null,"externalId":"1","recipient":"1234567890","body":"sms"}');
+        $this->expectOutputString('{"id":null,"externalId":"1","sendErrorMessage":null,"recipient":"1234567890","body":"sms"}');
         $sms = new SmsNotify('1234567890', 'sms');
 
         $this->notifier->send($sms);
@@ -39,7 +39,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testEmailNotify()
     {
-        $this->expectOutputString('{"id":null,"externalId":"1","recipient":"admin@google.com","body":"Hello admin","subject":"Test message"}');
+        $this->expectOutputString('{"id":null,"externalId":"1","sendErrorMessage":null,"recipient":"admin@google.com","body":"Hello admin","subject":"Test message"}');
         $email = new EmailNotify('admin@google.com', 'Hello admin', 'Test message');
         $this->assertEquals('Test message', $email->getSubject());
 
@@ -48,7 +48,7 @@ class NotifierNotifyTest extends \PHPUnit_Framework_TestCase
 
     public function testPushNotify()
     {
-        $this->expectOutputString('{"id":null,"externalId":"1","recipient":"YTFYF5456GFDS44Y","body":"Take on your phone"}');
+        $this->expectOutputString('{"id":null,"externalId":"1","sendErrorMessage":null,"recipient":"YTFYF5456GFDS44Y","body":"Take on your phone"}');
         $push = new PushNotify('YTFYF5456GFDS44Y', 'Take on your phone');
 
         $this->notifier->send($push);
