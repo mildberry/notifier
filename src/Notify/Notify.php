@@ -27,6 +27,11 @@ class Notify implements NotifyInterface
     /**
      * @var string
      */
+    protected $sendErrorMessage;
+
+    /**
+     * @var string
+     */
     protected $recipient;
 
     /**
@@ -88,6 +93,25 @@ class Notify implements NotifyInterface
     public function setSended($sended)
     {
         $this->sended = $sended;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSendErrorMessage()
+    {
+        return $this->sendErrorMessage;
+    }
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setSendErrorMessage($message)
+    {
+        $this->sendErrorMessage = $message;
 
         return $this;
     }

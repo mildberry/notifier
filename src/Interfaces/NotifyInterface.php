@@ -43,6 +43,17 @@ interface NotifyInterface
     /**
      * @return string
      */
+    public function getSendErrorMessage();
+
+    /**
+     * @param string $message
+     * @return $this
+     */
+    public function setSendErrorMessage($message);
+
+    /**
+     * @return string
+     */
     public function getBody();
 
     /**
